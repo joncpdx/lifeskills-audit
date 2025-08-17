@@ -57,28 +57,260 @@ function setupCTAButton() {
 }
 
 function setupFeatureCards() {
-    const featureCards = document.querySelectorAll('.feature-card');
+    const skillCards = document.querySelectorAll('.skill-card');
     
-    featureCards.forEach(card => {
-        // Add click handler for more details
-        card.addEventListener('click', function() {
-            const title = this.querySelector('h3').textContent;
-            showFeatureDetails(title);
+    skillCards.forEach(card => {
+        // Add click handler to navigate to audit
+        card.addEventListener('click', function(e) {
+            // Don't trigger if clicking on start button
+            if (e.target.classList.contains('start-button')) {
+                return;
+            }
+            
+            const skillId = this.dataset.skill;
+            window.location.href = `audit.html?skill=${skillId}`;
         });
         
         // Add keyboard navigation
         card.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                const title = this.querySelector('h3').textContent;
-                showFeatureDetails(title);
+                const skillId = this.dataset.skill;
+                window.location.href = `audit.html?skill=${skillId}`;
             }
         });
         
         // Make cards focusable
         card.setAttribute('tabindex', '0');
         card.setAttribute('role', 'button');
+        
+        // Add hover effect description
+        card.setAttribute('title', 'Click to start the audit for this skill area');
     });
+    
+    // Setup start buttons
+    setupStartButtons();
+    
+    // Setup clear data button
+    setupClearDataButton();
+    
+    // Load saved scores
+    loadSavedScores();
+}
+
+function setupStartButtons() {
+    const startButtons = document.querySelectorAll('.start-button');
+    
+    startButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent card click
+            
+            const skillId = this.id.replace('start-', '');
+            window.location.href = `audit.html?skill=${skillId}`;
+        });
+    });
+}
+
+function setupClearDataButton() {
+    const clearButton = document.getElementById('clear-all-data');
+    
+    if (clearButton) {
+        clearButton.addEventListener('click', function() {
+            if (confirm('Are you sure you want to clear all audit data? This action cannot be undone.')) {
+                clearAllData();
+            }
+        });
+    }
+}
+
+function clearAllData() {
+    // Remove all saved scores from localStorage
+    localStorage.removeItem('lifeSkillsScores');
+    
+    // Reset all skill cards to show start buttons
+    const skillIds = [
+        'receiving-love',
+        'exploring-playfully', 
+        'finding-voice',
+        'initiating-power',
+        'building-competence',
+        'increasing-responsibility',
+        'expanding-love'
+    ];
+    
+    skillIds.forEach(skillId => {
+        const scoreElement = document.getElementById(`score-${skillId}`);
+        const statementElement = document.getElementById(`statement-${skillId}`);
+        const startButton = document.getElementById(`start-${skillId}`);
+        
+        if (scoreElement && statementElement && startButton) {
+            // Hide score and statement
+            scoreElement.style.display = 'none';
+            statementElement.style.display = 'none';
+            
+            // Show start button
+            startButton.style.display = 'inline-block';
+        }
+    });
+    
+    // Show success message
+    showClearSuccessMessage();
+}
+
+function showClearSuccessMessage() {
+    // Create a temporary success message
+    const message = document.createElement('div');
+    message.className = 'clear-success-message';
+    message.textContent = 'All data cleared successfully!';
+    message.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #10b981;
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        z-index: 1000;
+        animation: slideIn 0.3s ease;
+    `;
+    
+    document.body.appendChild(message);
+    
+    // Remove message after 3 seconds
+    setTimeout(() => {
+        message.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+            if (message.parentNode) {
+                message.parentNode.removeChild(message);
+            }
+        }, 300);
+    }, 3000);
+}
+
+function loadSavedScores() {
+    const savedScores = localStorage.getItem('lifeSkillsScores');
+    if (savedScores) {
+        const scores = JSON.parse(savedScores);
+        
+        Object.keys(scores).forEach(skillId => {
+            const scoreElement = document.getElementById(`score-${skillId}`);
+            const statementElement = document.getElementById(`statement-${skillId}`);
+            const startButton = document.getElementById(`start-${skillId}`);
+            
+            if (scoreElement && startButton) {
+                const rawScore = scores[skillId];
+                
+                // Only show score if the skill has actually been audited (score > 0)
+                if (rawScore > 0) {
+                    // Convert 1-1000 score to 0-100 for display
+                    const displayScore = Math.round((rawScore / 1000) * 100);
+                    
+                    // Calculate color and text based on score
+                    const color = getScoreColor(displayScore);
+                    const scoreText = getScoreText(displayScore);
+                    
+                    // Hide start button and show score
+                    startButton.style.display = 'none';
+                    scoreElement.style.display = 'block';
+                    scoreElement.textContent = scoreText;
+                    scoreElement.style.background = color;
+                    
+                    // Show the statement if it exists
+                    if (statementElement) {
+                        statementElement.style.display = 'block';
+                    }
+                } else {
+                    // If score is 0 or invalid, keep start button visible
+                    startButton.style.display = 'inline-block';
+                    scoreElement.style.display = 'none';
+                    if (statementElement) {
+                        statementElement.style.display = 'none';
+                    }
+                }
+            }
+        });
+    } else {
+        // If no saved scores, ensure all statements are hidden and start buttons are visible
+        hideAllStatements();
+        showAllStartButtons();
+    }
+}
+
+function hideAllStatements() {
+    const skillIds = [
+        'receiving-love',
+        'exploring-playfully', 
+        'finding-voice',
+        'initiating-power',
+        'building-competence',
+        'increasing-responsibility',
+        'expanding-love'
+    ];
+    
+    skillIds.forEach(skillId => {
+        const statementElement = document.getElementById(`statement-${skillId}`);
+        if (statementElement) {
+            statementElement.style.display = 'none';
+        }
+    });
+}
+
+function showAllStartButtons() {
+    const skillIds = [
+        'receiving-love',
+        'exploring-playfully', 
+        'finding-voice',
+        'initiating-power',
+        'building-competence',
+        'increasing-responsibility',
+        'expanding-love'
+    ];
+    
+    skillIds.forEach(skillId => {
+        const startButton = document.getElementById(`start-${skillId}`);
+        const scoreElement = document.getElementById(`score-${skillId}`);
+        if (startButton && scoreElement) {
+            startButton.style.display = 'inline-block';
+            scoreElement.style.display = 'none';
+        }
+    });
+}
+
+function getScoreColor(score) {
+    // Ensure score is between 1 and 100
+    score = Math.max(1, Math.min(100, score));
+    
+    // 5 distinct color ranges
+    if (score <= 20) {
+        return 'rgb(220, 38, 38)'; // Deep red
+    } else if (score <= 40) {
+        return 'rgb(245, 101, 101)'; // Orange-red
+    } else if (score <= 60) {
+        return 'rgb(180, 180, 0)'; // Darker yellow for better readability
+    } else if (score <= 80) {
+        return 'rgb(34, 197, 94)'; // Light green
+    } else {
+        return 'rgb(0, 255, 0)'; // Pure green
+    }
+}
+
+function getScoreText(score) {
+    // Ensure score is between 1 and 100
+    score = Math.max(1, Math.min(100, score));
+    
+    // Return descriptive text based on score range
+    if (score <= 20) {
+        return 'needs attention';
+    } else if (score <= 40) {
+        return 'opportunity for growth';
+    } else if (score <= 60) {
+        return 'developing';
+    } else if (score <= 80) {
+        return 'strong';
+    } else {
+        return 'thriving';
+    }
 }
 
 function addLoadingAnimation() {

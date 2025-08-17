@@ -8,46 +8,78 @@
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Life Skills Audit</h1>
-            <p class="subtitle">Assess and improve your essential life skills</p>
-        </header>
-
         <main class="main-content">
-            <section class="welcome-section">
-                <h2>Welcome to Your Life Skills Journey</h2>
-                <p>
-                    Take control of your personal development by assessing your current life skills 
-                    and identifying areas for growth. Our comprehensive audit helps you build a 
-                    stronger foundation for success in all aspects of life.
-                </p>
-                <a href="#" class="cta-button">Start Your Audit</a>
-            </section>
-
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h3>Comprehensive Assessment</h3>
-                    <p>
-                        Evaluate your skills across multiple domains including communication, 
-                        financial literacy, emotional intelligence, and practical life skills.
-                    </p>
+            <header class="page-header">
+                <h1>7 Skills for Life</h1>
+                <h2>take the assessment</h2>
+            </header>
+            <div class="skills-grid">
+                <div class="skill-card" data-skill="receiving-love">
+                    <h4>Receiving Love</h4>
+                    <div class="skill-score" id="score-receiving-love" style="display: none;">-</div>
+                    <div class="skill-statement" id="statement-receiving-love" style="display: none;">
+                        I can receive love because I am loved just as I am
+                    </div>
+                    <button class="start-button" id="start-receiving-love">Start</button>
                 </div>
                 
-                <div class="feature-card">
-                    <h3>Personalized Insights</h3>
-                    <p>
-                        Receive detailed feedback and recommendations tailored to your specific 
-                        strengths and areas for improvement.
-                    </p>
+                <div class="skill-card" data-skill="exploring-playfully">
+                    <h4>Exploring Playfully</h4>
+                    <div class="skill-score" id="score-exploring-playfully" style="display: none;">-</div>
+                    <div class="skill-statement" id="statement-exploring-playfully" style="display: none;">
+                        I can try new behaviors because I am supported
+                    </div>
+                    <button class="start-button" id="start-exploring-playfully">Start</button>
                 </div>
                 
-                <div class="feature-card">
-                    <h3>Actionable Goals</h3>
-                    <p>
-                        Set clear, achievable goals and track your progress as you develop 
-                        essential life skills for long-term success.
-                    </p>
+                <div class="skill-card" data-skill="finding-voice">
+                    <h4>Finding Your Voice</h4>
+                    <div class="skill-score" id="score-finding-voice" style="display: none;">-</div>
+                    <div class="skill-statement" id="statement-finding-voice" style="display: none;">
+                        I can become my own person and keep connections
+                    </div>
+                    <button class="start-button" id="start-finding-voice">Start</button>
                 </div>
+                
+                <div class="skill-card" data-skill="initiating-power">
+                    <h4>Initiating Power</h4>
+                    <div class="skill-score" id="score-initiating-power" style="display: none;">-</div>
+                    <div class="skill-statement" id="statement-initiating-power" style="display: none;">
+                        I can use my abilities and influence for healthy relationships
+                    </div>
+                    <button class="start-button" id="start-initiating-power">Start</button>
+                </div>
+                
+                <div class="skill-card" data-skill="building-competence">
+                    <h4>Building Competence</h4>
+                    <div class="skill-score" id="score-building-competence" style="display: none;">-</div>
+                    <div class="skill-statement" id="statement-building-competence" style="display: none;">
+                        I can grow my abilities in challenging circumstances
+                    </div>
+                    <button class="start-button" id="start-building-competence">Start</button>
+                </div>
+                
+                <div class="skill-card" data-skill="increasing-responsibility">
+                    <h4>Increasing Responsibility</h4>
+                    <div class="skill-score" id="score-increasing-responsibility" style="display: none;">-</div>
+                    <div class="skill-statement" id="statement-increasing-responsibility" style="display: none;">
+                        I can manage my internal world and behavior
+                    </div>
+                    <button class="start-button" id="start-increasing-responsibility">Start</button>
+                </div>
+                
+                <div class="skill-card" data-skill="expanding-love">
+                    <h4>Expanding Love</h4>
+                    <div class="skill-score" id="score-expanding-love" style="display: none;">-</div>
+                    <div class="skill-statement" id="statement-expanding-love" style="display: none;">
+                        I can connect and contribute meaningfully
+                    </div>
+                    <button class="start-button" id="start-expanding-love">Start</button>
+                </div>
+            </div>
+            
+            <div class="clear-data-section">
+                <button id="clear-all-data" class="clear-data-button">Clear All Data & Start Fresh</button>
             </div>
         </main>
 

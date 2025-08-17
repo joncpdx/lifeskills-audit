@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Skills Audit</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="slider-style.css">
+</head>
+<body>
+    <div class="container">
+        <main class="main-content">
+            <div id="question-container">
+                <div class="skill-header">
+                    <h2 id="skill-name">Loading...</h2>
+                </div>
+                
+                <div class="question-content">
+                    <div class="question-number">Question <span id="current-question">1</span> of 10</div>
+                    <div class="question-text" id="question-text">Loading question...</div>
+                    
+                    <div class="slider-container">
+                        <div class="slider-labels">
+                            <span class="label-left">True</span>
+                            <span class="label-right">False</span>
+                        </div>
+                        <div class="slider-track">
+                            <input type="range" id="slider" min="1" max="100" value="50" class="slider">
+                            <div class="slider-thumb"></div>
+                        </div>
+                        <div class="slider-value" id="slider-value">50</div>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button id="prev-btn" class="nav-btn" disabled>Previous</button>
+                    <button id="next-btn" class="nav-btn">Next</button>
+                    <button id="finish-btn" class="nav-btn" style="display: none;">Finish</button>
+                </div>
+            </div>
+
+            <div id="results-container" style="display: none;">
+                <div class="results-header">
+                    <h2 id="results-skill-name">Skill Completed</h2>
+                </div>
+                
+                <div class="results-content">
+                    <div class="results-score" id="results-score">Your Score</div>
+                    <div class="results-statement" id="results-statement">Skill Statement</div>
+                </div>
+                
+                <div class="results-navigation">
+                    <button id="back-to-dashboard" class="nav-btn">Back to Dashboard</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="audit-data.js"></script>
+    <script src="slider-script.js"></script>
+</body>
+</html>
