@@ -152,7 +152,15 @@ h1 {
     transform: scaleX(1);
 }
 
+.skill-card.completed {
+    background: #f8f9fa;
+    border-color: #d1d5db;
+}
 
+.skill-card.completed:hover {
+    background: #f1f3f4;
+    border-color: #9ca3af;
+}
 
 .skill-card h4 {
     color: #4a5568;

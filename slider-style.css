@@ -187,13 +187,16 @@
     }
     
     .navigation {
-        flex-direction: column;
+        flex-direction: row;
         gap: 1rem;
+        justify-content: center;
     }
     
     .nav-btn {
-        width: 100%;
-        max-width: 200px;
+        width: auto;
+        min-width: 120px;
+        flex: 1;
+        max-width: 150px;
     }
     
     .results-score {
@@ -218,56 +221,63 @@
 #results-container {
     text-align: center;
     padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-.results-header h2 {
+.results-header h1 {
     color: #4a5568;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    font-weight: 600;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    font-weight: 700;
 }
 
 .results-content {
     margin-bottom: 3rem;
-}
-
-.results-score {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 12px;
-    min-width: 200px;
-    text-align: center;
-    margin: 0 auto 1.5rem;
-    display: inline-block;
-    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .results-stage-root {
-    font-size: 0.9rem;
-    color: #9ca3af;
+    font-size: 0.95rem;
+    color: #6b7280;
     text-align: center;
-    line-height: 1.4;
+    line-height: 1.6;
     font-style: italic;
-    padding: 0 1rem;
+    padding: 0;
     max-width: 600px;
-    margin: 0 auto 1.5rem;
-    border-left: 3px solid #e5e7eb;
-    padding-left: 1rem;
+    margin: 0 auto 1rem;
+    background: none;
+    border: none;
+}
+
+.results-score {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    padding: 1.5rem 3rem;
+    border-radius: 15px;
+    min-width: 250px;
+    text-align: center;
+    margin: 0 auto;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .results-range-text {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: #374151;
     text-align: center;
-    line-height: 1.6;
-    padding: 1.5rem;
+    line-height: 1.7;
+    padding: 2rem;
     max-width: 600px;
     margin: 0 auto;
-    background: #f9fafb;
-    border-radius: 12px;
-    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    border-radius: 15px;
+    border: 2px solid #e5e7eb;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .results-navigation {

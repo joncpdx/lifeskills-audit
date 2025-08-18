@@ -213,6 +213,7 @@ function updateMainPageScores() {
             const scoreElement = document.getElementById(`score-${skillId}`);
             const statementElement = document.getElementById(`statement-${skillId}`);
             const startButton = document.getElementById(`start-${skillId}`);
+            const skillCard = document.querySelector(`[data-skill="${skillId}"]`);
             
             if (scoreElement && startButton) {
                 const rawScore = scores[skillId];
@@ -232,6 +233,11 @@ function updateMainPageScores() {
                     scoreElement.textContent = scoreText;
                     scoreElement.style.background = color;
                     
+                    // Add completed class to skill card
+                    if (skillCard) {
+                        skillCard.classList.add('completed');
+                    }
+                    
                     // Show the statement if it exists
                     if (statementElement) {
                         statementElement.style.display = 'block';
@@ -240,6 +246,12 @@ function updateMainPageScores() {
                     // If score is 0 or invalid, keep start button visible
                     startButton.style.display = 'inline-block';
                     scoreElement.style.display = 'none';
+                    
+                    // Remove completed class from skill card
+                    if (skillCard) {
+                        skillCard.classList.remove('completed');
+                    }
+                    
                     if (statementElement) {
                         statementElement.style.display = 'none';
                     }
@@ -286,9 +298,16 @@ function showAllStartButtons() {
     skillIds.forEach(skillId => {
         const startButton = document.getElementById(`start-${skillId}`);
         const scoreElement = document.getElementById(`score-${skillId}`);
+        const skillCard = document.querySelector(`[data-skill="${skillId}"]`);
+        
         if (startButton && scoreElement) {
             startButton.style.display = 'inline-block';
             scoreElement.style.display = 'none';
+        }
+        
+        // Remove completed class from skill card
+        if (skillCard) {
+            skillCard.classList.remove('completed');
         }
     });
 }
