@@ -352,3 +352,38 @@ function getScoreText(score) {
 if (window.location.pathname.includes('index.html') || window.location.pathname.endsWith('/')) {
     document.addEventListener('DOMContentLoaded', updateMainPageScores);
 }
+
+function generateRandomResults() {
+    // Generate random scores for all skills
+    const skillIds = [
+        'receiving-love',
+        'exploring-playfully', 
+        'finding-voice',
+        'initiating-power',
+        'building-competence',
+        'increasing-responsibility',
+        'expanding-love'
+    ];
+    
+    // Clear existing scores
+    skillScores = {};
+    
+    // Generate random scores for each skill (1-1000 range)
+    skillIds.forEach(skillId => {
+        // Generate a random score between 100 and 1000
+        const randomScore = Math.floor(Math.random() * 901) + 100;
+        skillScores[skillId] = randomScore;
+    });
+    
+    // Save to localStorage
+    localStorage.setItem('lifeSkillsScores', JSON.stringify(skillScores));
+    
+    // Update main page scores
+    updateMainPageScores();
+    
+    // Show success message
+    alert('Random results generated! All skills now have random scores. Return to dashboard to see the results.');
+    
+    // Redirect to dashboard
+    window.location.href = 'index.html';
+}

@@ -1,60 +1,18 @@
 // Life Skills Audit - Interactive JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded - script starting...');
     // Initialize the application
     initializeApp();
+    console.log('App initialized');
 });
 
 function initializeApp() {
-    // Add smooth scrolling for anchor links
-    addSmoothScrolling();
-    
-    // Add interactive features to the CTA button
-    setupCTAButton();
-    
     // Add hover effects to feature cards
     setupFeatureCards();
-    
-    // Add a simple loading animation
-    addLoadingAnimation();
-    
-    // Add scroll-based animations
-    addScrollAnimations();
 }
 
-function addSmoothScrolling() {
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-}
 
-function setupCTAButton() {
-    const ctaButton = document.querySelector('.cta-button');
-    if (ctaButton) {
-        ctaButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Add click animation
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 150);
-            
-            // Show a modal or navigate to audit page
-            showAuditModal();
-        });
-    }
-}
 
 function setupFeatureCards() {
     const skillCards = document.querySelectorAll('.skill-card');
@@ -94,15 +52,24 @@ function setupFeatureCards() {
     // Setup clear data button
     setupClearDataButton();
     
+    // Setup download button
+    setupDownloadButton();
+    
+    // Setup generate random results button
+    setupGenerateButton();
+    
     // Load saved scores
     loadSavedScores();
 }
 
 function setupStartButtons() {
+    console.log('Setting up start buttons...');
     const startButtons = document.querySelectorAll('.start-button');
+    console.log('Found', startButtons.length, 'start buttons');
     
     startButtons.forEach(button => {
         button.addEventListener('click', function(e) {
+            console.log('Start button clicked:', this.id);
             e.stopPropagation(); // Prevent card click
             
             const skillId = this.id.replace('start-', '');
@@ -112,14 +79,19 @@ function setupStartButtons() {
 }
 
 function setupClearDataButton() {
+    console.log('Setting up clear data button...');
     const clearButton = document.getElementById('clear-all-data');
     
     if (clearButton) {
+        console.log('Clear button found, adding event listener');
         clearButton.addEventListener('click', function() {
+            console.log('Clear button clicked');
             if (confirm('Are you sure you want to clear all audit data? This action cannot be undone.')) {
                 clearAllData();
             }
         });
+    } else {
+        console.error('Clear button not found!');
     }
 }
 
@@ -192,6 +164,7 @@ function loadSavedScores() {
     const savedScores = localStorage.getItem('lifeSkillsScores');
     if (savedScores) {
         const scores = JSON.parse(savedScores);
+        let completedSkills = 0;
         
         Object.keys(scores).forEach(skillId => {
             const scoreElement = document.getElementById(`score-${skillId}`);
@@ -204,6 +177,8 @@ function loadSavedScores() {
                 
                 // Only show score if the skill has actually been audited (score > 0)
                 if (rawScore > 0) {
+                    completedSkills++;
+                    
                     // Convert 1-1000 score to 0-100 for display
                     const displayScore = Math.round((rawScore / 1000) * 100);
                     
@@ -242,10 +217,26 @@ function loadSavedScores() {
                 }
             }
         });
+        
+        // Show download button if all 7 skills are completed
+        const downloadSection = document.getElementById('download-section');
+        if (downloadSection) {
+            if (completedSkills === 7) {
+                downloadSection.style.display = 'block';
+            } else {
+                downloadSection.style.display = 'none';
+            }
+        }
     } else {
         // If no saved scores, ensure all statements are hidden and start buttons are visible
         hideAllStatements();
         showAllStartButtons();
+        
+        // Hide download button
+        const downloadSection = document.getElementById('download-section');
+        if (downloadSection) {
+            downloadSection.style.display = 'none';
+        }
     }
 }
 
@@ -294,6 +285,366 @@ function showAllStartButtons() {
             skillCard.classList.remove('completed');
         }
     });
+    
+    // Hide download button
+    const downloadSection = document.getElementById('download-section');
+    if (downloadSection) {
+        downloadSection.style.display = 'none';
+    }
+}
+
+function setupDownloadButton() {
+    const downloadButton = document.getElementById('download-results');
+    if (downloadButton) {
+        downloadButton.addEventListener('click', generatePDF);
+    }
+}
+
+function generatePDF() {
+    try {
+        // Check if jsPDF is available
+        if (!window.jspdf) {
+            alert('PDF generation library not loaded. Please refresh the page and try again.');
+            return;
+        }
+        
+                const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        // Set default text color to black
+        doc.setTextColor(0, 0, 0);
+        
+        // Get current date
+    const today = new Date();
+    const dateString = today.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    });
+    
+    // Get saved scores
+    const savedScores = localStorage.getItem('lifeSkillsScores');
+    if (!savedScores) {
+        alert('No results to download. Please complete the audit first.');
+        return;
+    }
+    
+    const scores = JSON.parse(savedScores);
+    
+    // PDF styling
+    const titleFontSize = 20;
+    const headerFontSize = 14;
+    const bodyFontSize = 12;
+    const smallFontSize = 10;
+    
+    let yPosition = 20;
+    
+    // Title
+    doc.setFontSize(titleFontSize);
+    doc.setFont(undefined, 'bold');
+    doc.setTextColor(0, 0, 0);
+    doc.text('LIFE SKILLS AUDIT RESULTS', 105, yPosition, { align: 'center' });
+    
+    yPosition += 15;
+    
+    // Date
+    doc.setFontSize(smallFontSize);
+    doc.setFont(undefined, 'normal');
+    doc.setTextColor(0, 0, 0);
+    doc.text(dateString, 105, yPosition, { align: 'center' });
+    
+    yPosition += 25;
+    
+    // Book Recommendation Section at the top
+    // Draw a more detailed book icon
+    const bookX = 20;
+    const bookY = yPosition;
+    const bookWidth = 35;
+    const bookHeight = 45;
+    
+    // Book spine (darker purple)
+    doc.setFillColor(88, 108, 200);
+    doc.rect(bookX, bookY, 8, bookHeight, 'F');
+    
+    // Book cover (main purple)
+    doc.setFillColor(102, 126, 234);
+    doc.rect(bookX + 8, bookY, bookWidth - 8, bookHeight, 'F');
+    
+    // Book pages (white)
+    doc.setFillColor(255, 255, 255);
+    doc.rect(bookX + 10, bookY + 2, bookWidth - 12, bookHeight - 4, 'F');
+    
+    // Book title lines (simulating text)
+    doc.setFillColor(200, 200, 200);
+    doc.rect(bookX + 12, bookY + 8, bookWidth - 16, 2, 'F');
+    doc.rect(bookX + 12, bookY + 12, bookWidth - 18, 2, 'F');
+    doc.rect(bookX + 12, bookY + 16, bookWidth - 20, 2, 'F');
+    
+    // Book binding (gold)
+    doc.setFillColor(255, 215, 0);
+    doc.rect(bookX + 6, bookY + 5, 4, bookHeight - 10, 'F');
+    
+    // Book title
+    doc.setFontSize(headerFontSize);
+    doc.setFont(undefined, 'bold');
+    doc.setTextColor(0, 0, 0);
+    doc.text('7 Skills for Life:', bookX + bookWidth + 10, bookY + 15);
+    
+    doc.setFontSize(bodyFontSize);
+    doc.setFont(undefined, 'normal');
+    doc.setTextColor(0, 0, 0);
+    const subtitleText = 'Spiritual Growth in Each Stage of Human Development';
+    const subtitleLines = doc.splitTextToSize(subtitleText, 120);
+    doc.text(subtitleLines, bookX + bookWidth + 10, bookY + 25);
+    
+    yPosition += Math.max(50, subtitleLines.length * 5 + 20);
+    
+    // Learn more link
+    doc.setFontSize(bodyFontSize);
+    doc.setFont(undefined, 'bold');
+    doc.setTextColor(0, 0, 0); // Black color for link
+    doc.text('Learn more: www.tristencollins.com', 20, yPosition);
+    
+    yPosition += 20;
+    
+    // Individual Skill Results
+    doc.setFontSize(headerFontSize);
+    doc.setFont(undefined, 'bold');
+    doc.setTextColor(0, 0, 0);
+    doc.text('INDIVIDUAL SKILL RESULTS', 20, yPosition);
+    
+    yPosition += 15;
+    
+    // Process each skill
+    const skillIds = [
+        'receiving-love',
+        'exploring-playfully', 
+        'finding-voice',
+        'initiating-power',
+        'building-competence',
+        'increasing-responsibility',
+        'expanding-love'
+    ];
+    
+    skillIds.forEach((skillId, index) => {
+        const rawScore = scores[skillId];
+        if (rawScore > 0) {
+            const displayScore = Math.round((rawScore / 1000) * 100);
+            const scoreText = getScoreText(displayScore);
+            const skillName = getSkillName(skillId);
+            const skillDescription = getSkillDescription(skillId);
+            const resultStatement = getResultStatement(skillId, displayScore);
+            
+            // Check if we need a new page
+            if (yPosition > 250) {
+                doc.addPage();
+                yPosition = 20;
+            }
+            
+            // Skill name
+            doc.setFontSize(bodyFontSize);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(0, 0, 0);
+            doc.text(`${index + 1}. ${skillName}`, 20, yPosition);
+            
+            yPosition += 8;
+            
+            // Skill statement
+            doc.setFontSize(smallFontSize);
+            doc.setFont(undefined, 'normal');
+            doc.setTextColor(0, 0, 0); // Black color for statement
+            const skillStatement = getSkillStatement(skillId);
+            const skillStatementLines = doc.splitTextToSize(skillStatement, 160);
+            doc.text(skillStatementLines, 25, yPosition);
+            yPosition += (skillStatementLines.length * 4) + 4;
+            
+            // Color-coded result button
+            const color = getScoreColor(displayScore);
+            const buttonWidth = 60;
+            const buttonHeight = 12;
+            const buttonX = 20;
+            const buttonY = yPosition - 5;
+            
+            // Draw colored rectangle for result button
+            doc.setFillColor(color);
+            doc.rect(buttonX, buttonY, buttonWidth, buttonHeight, 'F');
+            
+            // Add result text on the button
+            doc.setFontSize(smallFontSize);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(255, 255, 255); // White text
+            doc.text(scoreText, buttonX + buttonWidth/2, buttonY + buttonHeight/2 + 2, { align: 'center' });
+            
+            // Reset text color
+            doc.setTextColor(0, 0, 0);
+            
+            yPosition += 15;
+            
+            // Developmental stage
+            doc.setFontSize(smallFontSize);
+            doc.setFont(undefined, 'italic');
+            doc.setTextColor(0, 0, 0);
+            const stageLines = doc.splitTextToSize(skillDescription, 160);
+            doc.text(stageLines, 25, yPosition);
+            yPosition += (stageLines.length * 4) + 4;
+            
+            // Result statement
+            doc.setFontSize(bodyFontSize);
+            doc.setFont(undefined, 'normal');
+            doc.setTextColor(0, 0, 0);
+            const statementLines = doc.splitTextToSize(resultStatement, 160);
+            doc.text(statementLines, 25, yPosition);
+            yPosition += (statementLines.length * 5) + 10;
+        }
+    });
+    
+    yPosition += 15;
+    
+    // Save the PDF
+    doc.save('life-skills-audit-results.pdf');
+    } catch (error) {
+        console.error('PDF generation error:', error);
+        alert('Error generating PDF. Please try again or contact support.');
+    }
+}
+
+function getSkillName(skillId) {
+    const skillNames = {
+        'receiving-love': 'Receiving Love',
+        'exploring-playfully': 'Exploring Playfully',
+        'finding-voice': 'Finding Your Voice',
+        'initiating-power': 'Initiating Power',
+        'building-competence': 'Building Competence',
+        'increasing-responsibility': 'Increasing Responsibility',
+        'expanding-love': 'Expanding Love'
+    };
+    return skillNames[skillId] || skillId;
+}
+
+function getSkillDescription(skillId) {
+    const skillDescriptions = {
+        'receiving-love': 'This skill is rooted in the infant stage, when we learn to receive care and love—because being loved helps us develop trust and security.',
+        'exploring-playfully': 'This skill is rooted in the toddler stage, when curiosity and safety meet—because exploration helps us learn resilience and joy.',
+        'finding-voice': 'This skill is rooted in the preschool stage, when we develop our unique identity—because having a voice helps us maintain connections while being ourselves.',
+        'initiating-power': 'This skill is rooted in the school-age stage, when we learn to use our abilities—because healthy power helps us contribute and influence others.',
+        'building-competence': 'This skill is rooted in adolescence, when we develop our capabilities—because competence helps us adapt and grow in challenging circumstances.',
+        'increasing-responsibility': 'This skill is rooted in young adulthood, when we take ownership of our lives—because responsibility helps us manage our internal world and behavior.',
+        'expanding-love': 'This skill is rooted in adulthood, when we contribute to others—because expanding love helps us connect and contribute meaningfully.'
+    };
+    return skillDescriptions[skillId] || '';
+}
+
+function getSkillStatement(skillId) {
+    const skillStatements = {
+        'receiving-love': 'I can receive love because I am loved just as I am.',
+        'exploring-playfully': 'I can try new behaviors because I am supported.',
+        'finding-voice': 'I can become my own person and keep connections.',
+        'initiating-power': 'I can use my abilities and influence for healthy relationships.',
+        'building-competence': 'I can grow my abilities in challenging circumstances.',
+        'increasing-responsibility': 'I can manage my internal world and behavior.',
+        'expanding-love': 'I can connect and contribute meaningfully.'
+    };
+    return skillStatements[skillId] || '';
+}
+
+function getResultStatement(skillId, score) {
+    const statements = {
+        'receiving-love': {
+            low: 'You may struggle to accept love and care from others. Consider practicing vulnerability and allowing yourself to receive support.',
+            moderate: 'You\'re developing the ability to receive love. Focus on accepting help and recognizing your worthiness of care.',
+            high: 'You have a strong foundation in receiving love. Continue to nurture this skill and help others develop it too.'
+        },
+        'exploring-playfully': {
+            low: 'You may avoid new experiences due to fear or perfectionism. Try small experiments and celebrate curiosity.',
+            moderate: 'You\'re building courage to explore. Practice trying new things in safe environments.',
+            high: 'You embrace new experiences with joy. Your curiosity and resilience inspire others.'
+        },
+        'finding-voice': {
+            low: 'You may struggle to express your authentic self. Practice sharing your thoughts and preferences.',
+            moderate: 'You\'re developing your unique voice. Continue to express your perspective while maintaining connections.',
+            high: 'You confidently express your authentic self. Your voice adds valuable perspective to your relationships.'
+        },
+        'initiating-power': {
+            low: 'You may avoid taking initiative or handling conflicts. Practice assertiveness and constructive conflict resolution.',
+            moderate: 'You\'re developing healthy power and initiative. Continue to take action and address conflicts directly.',
+            high: 'You effectively use your influence for positive change. Your leadership and conflict resolution skills are strong.'
+        },
+        'building-competence': {
+            low: 'You may avoid learning new skills or adapting to change. Focus on growth mindset and seeking feedback.',
+            moderate: 'You\'re developing new capabilities. Continue to embrace challenges and learn from diverse perspectives.',
+            high: 'You adapt and grow in challenging circumstances. Your competence and resilience are impressive.'
+        },
+        'increasing-responsibility': {
+            low: 'You may avoid taking ownership of your life and emotions. Practice self-reflection and commitment-keeping.',
+            moderate: 'You\'re taking more responsibility for your well-being. Continue to manage your internal world effectively.',
+            high: 'You take full ownership of your life and choices. Your responsibility and self-management are exemplary.'
+        },
+        'expanding-love': {
+            low: 'You may struggle to contribute meaningfully to others. Focus on identifying your gifts and connecting emotionally.',
+            moderate: 'You\'re developing your ability to contribute and connect. Continue to share your talents and support others.',
+            high: 'You meaningfully contribute to others\' well-being. Your love and generosity create positive impact.'
+        }
+    };
+    
+    const skillStatements = statements[skillId];
+    if (!skillStatements) return '';
+    
+    if (score <= 40) return skillStatements.low;
+    if (score <= 80) return skillStatements.moderate;
+    return skillStatements.high;
+}
+
+function setupGenerateButton() {
+    console.log('Setting up generate button...');
+    const generateButton = document.getElementById('generate-random-dashboard');
+    if (generateButton) {
+        console.log('Generate button found, adding event listener');
+        generateButton.addEventListener('click', generateRandomResults);
+    } else {
+        console.error('Generate button not found!');
+    }
+}
+
+function generateRandomResults() {
+    try {
+        console.log('Generate button clicked - starting random generation...');
+        
+        // Generate random scores for all skills
+        const skillIds = [
+            'receiving-love',
+            'exploring-playfully', 
+            'finding-voice',
+            'initiating-power',
+            'building-competence',
+            'increasing-responsibility',
+            'expanding-love'
+        ];
+        
+        // Generate random scores for each skill (1-1000 range)
+        const randomScores = {};
+        skillIds.forEach(skillId => {
+            // Generate a random score between 100 and 1000
+            const randomScore = Math.floor(Math.random() * 901) + 100;
+            randomScores[skillId] = randomScore;
+        });
+        
+        console.log('Generated scores:', randomScores);
+        
+        // Save to localStorage
+        localStorage.setItem('lifeSkillsScores', JSON.stringify(randomScores));
+        console.log('Scores saved to localStorage');
+        
+        // Update the display immediately
+        loadSavedScores();
+        console.log('Display updated');
+        
+        // Show success message
+        alert('Random results generated! All skills now have random scores.');
+        
+    } catch (error) {
+        console.error('Error in generateRandomResults:', error);
+        alert('Error generating random results: ' + error.message);
+    }
 }
 
 function getScoreColor(score) {
@@ -304,13 +655,13 @@ function getScoreColor(score) {
     if (score <= 20) {
         return 'rgb(220, 38, 38)'; // Deep red
     } else if (score <= 40) {
-        return 'rgb(245, 101, 101)'; // Orange-red
+        return 'rgb(255, 165, 0)'; // Orange
     } else if (score <= 60) {
         return 'rgb(180, 180, 0)'; // Darker yellow for better readability
     } else if (score <= 80) {
-        return 'rgb(34, 197, 94)'; // Light green
+        return 'rgb(95, 120, 25)'; // Olive green
     } else {
-        return 'rgb(0, 255, 0)'; // Pure green
+        return 'rgb(0, 100, 0)'; // Dark green
     }
 }
 
