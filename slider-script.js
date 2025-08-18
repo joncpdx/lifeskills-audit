@@ -63,14 +63,6 @@ function setupEventListeners() {
     prevBtn.addEventListener('click', previousQuestion);
     nextBtn.addEventListener('click', nextQuestion);
     finishBtn.addEventListener('click', finishSkill);
-    
-    // Add event listener for back to dashboard button
-    const backToDashboardBtn = document.getElementById('back-to-dashboard');
-    if (backToDashboardBtn) {
-        backToDashboardBtn.addEventListener('click', function() {
-            window.location.href = 'index.html';
-        });
-    }
 }
 
 function updateQuestion() {
@@ -138,54 +130,11 @@ function finishSkill() {
     // Save to localStorage
     localStorage.setItem('lifeSkillsScores', JSON.stringify(skillScores));
     
-    // Show results screen
-    showResultsScreen(currentSkill, totalScore);
+    // Return to dashboard
+    window.location.href = 'index.html';
 }
 
-function showResultsScreen(skill, totalScore) {
-    // Hide question container
-    const questionContainer = document.getElementById('question-container');
-    const resultsContainer = document.getElementById('results-container');
-    
-    if (questionContainer && resultsContainer) {
-        questionContainer.style.display = 'none';
-        resultsContainer.style.display = 'block';
-        
-        // Update results content
-        const resultsSkillName = document.getElementById('results-skill-name');
-        const resultsScore = document.getElementById('results-score');
-        const resultsStatement = document.getElementById('results-statement');
-        
-        if (resultsSkillName) {
-            resultsSkillName.textContent = skill.name;
-        }
-        
-        if (resultsScore) {
-            // Convert 1-1000 score to 0-100 for display
-            const displayScore = Math.round((totalScore / 1000) * 100);
-            const scoreText = getScoreText(displayScore);
-            const color = getScoreColor(displayScore);
-            
-            resultsScore.textContent = scoreText;
-            resultsScore.style.background = color;
-        }
-        
-        if (resultsStatement) {
-            // Get the skill statement based on skill ID
-            const skillStatements = {
-                'receiving-love': 'I can receive love because I am loved just as I am',
-                'exploring-playfully': 'I can try new behaviors because I am supported',
-                'finding-voice': 'I can become my own person and keep connections',
-                'initiating-power': 'I can use my abilities and influence for healthy relationships',
-                'building-competence': 'I can grow my abilities in challenging circumstances',
-                'increasing-responsibility': 'I can manage my internal world and behavior',
-                'expanding-love': 'I can connect and contribute meaningfully'
-            };
-            
-            resultsStatement.textContent = skillStatements[skill.id] || 'Skill completed successfully!';
-        }
-    }
-}
+
 
 // Function to update scores on main page
 function updateMainPageScores() {
