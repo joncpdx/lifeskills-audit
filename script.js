@@ -405,7 +405,7 @@ function generatePDF() {
     doc.setTextColor(0, 0, 0); // Black color for link
     doc.text('Learn more: www.tristencollins.com', 20, yPosition);
     
-    yPosition += 20;
+    yPosition += 30;
     
     // Individual Skill Results
     doc.setFontSize(headerFontSize);
@@ -435,8 +435,8 @@ function generatePDF() {
             const skillDescription = getSkillDescription(skillId);
             const resultStatement = getResultStatement(skillId, displayScore);
             
-            // Check if we need a new page
-            if (yPosition > 250) {
+            // Check if we need a new page - more conservative to prevent cutoff
+            if (yPosition > 220) {
                 doc.addPage();
                 yPosition = 20;
             }
@@ -499,6 +499,48 @@ function generatePDF() {
     });
     
     yPosition += 15;
+    
+    // Add Color Key at the very end
+    // Check if we need a new page for the color key
+    if (yPosition > 200) {
+        doc.addPage();
+        yPosition = 20;
+    }
+    
+    // Color Key
+    doc.setFontSize(headerFontSize);
+    doc.setFont(undefined, 'bold');
+    doc.setTextColor(0, 0, 0);
+    doc.text('RESULT KEY', 20, yPosition);
+    
+    yPosition += 15;
+    
+    // Color key items
+    const colorKey = [
+        { color: 'rgb(220, 38, 38)', text: 'needs attention', range: '1-20' },
+        { color: 'rgb(255, 165, 0)', text: 'opportunity for growth', range: '21-40' },
+        { color: 'rgb(180, 180, 0)', text: 'developing', range: '41-60' },
+        { color: 'rgb(95, 120, 25)', text: 'strong', range: '61-80' },
+        { color: 'rgb(0, 100, 0)', text: 'thriving', range: '81-100' }
+    ];
+    
+    colorKey.forEach((item, index) => {
+        const keyX = 20;
+        const keyY = yPosition;
+        const colorBoxSize = 8;
+        
+        // Draw color box
+        doc.setFillColor(item.color);
+        doc.rect(keyX, keyY, colorBoxSize, colorBoxSize, 'F');
+        
+        // Add text
+        doc.setFontSize(bodyFontSize);
+        doc.setFont(undefined, 'normal');
+        doc.setTextColor(0, 0, 0);
+        doc.text(item.text, keyX + colorBoxSize + 5, keyY + 5);
+        
+        yPosition += 12;
+    });
     
     // Save the PDF
     doc.save('life-skills-audit-results.pdf');
