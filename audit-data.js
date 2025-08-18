@@ -45,11 +45,11 @@ const auditData = {
                 "I'm afraid of having different opinions or preferences from other people because my relationship might become threatened",
                 "I ignore, or minimize negative thoughts and feelings in myself and others",
                 "People describe me as a bully, aggressive, or passive-aggressive",
-                "I believe that there is only a right way and wrong way to think about life rather than embracing the fact that there are different perspectives, opinions and behaviors that are valuable.",
+                "I believe that there is only a right way and wrong way to think about life I believe that there is only a right way and wrong way to think about life rather than embracing the fact that there are different perspectives, opinions and behaviors that are valuable.",
                 "I often assume that my thoughts and interpretations about God and/or theology are facts.",
-                "Prayer is difficult because I believe that God doesn't care or respect my real thoughts and preferences.",
+                "Prayer is difficult because I believe that God doesn't care about my real thoughts and preferences",
                 "I automatically argue or feel afraid of other's perspectives and opinions about God",
-                "God doesn't care about my thoughts and preferences"
+                "God doesn’t care about me developing my thoughts and preferences"
             ]
         },
         {
@@ -58,7 +58,7 @@ const auditData = {
             description: "The ability to take initiative, be assertive, and handle conflicts constructively",
             questions: [
                 "I am afraid of being assertive and taking initiative",
-                "I'm passive or I'm aggressive",
+                "People say that I’m aggressive",
                 "I avoid communicating my weaknesses and limitations",
                 "I feel outraged or overwhelmed when things don't go the way I planned",
                 "I stay stuck in painful circumstances instead of taking action",
@@ -114,7 +114,7 @@ const auditData = {
                 "I don't know how I could contribute in my relationships",
                 "I haven't addressed or faced an addiction, health issues or unresolved trauma and how it affects both me and my relationships",
                 "I contribute to my family and church but I feel joyless, burdened, jealous and/or resentful",
-                "I have unprocessed wounds from church relationships and it hinders a positive experience with God and relationships",
+                "I have unprocessed wounds from relationships and it hinders a positive experience with God and relationships",
                 "I use Scripture as a way to show how others are wrong, instead of it challenging me to become more like Jesus",
                 "My community lacks diversity of thought, race, cultures, age, and socio-economics",
                 "It's ok to treat people with disrespect and contempt in my words and behavior if they don't have the same beliefs and convictions as me and my community."
