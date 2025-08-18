@@ -63,6 +63,14 @@ function setupEventListeners() {
     prevBtn.addEventListener('click', previousQuestion);
     nextBtn.addEventListener('click', nextQuestion);
     finishBtn.addEventListener('click', finishSkill);
+    
+    // Add event listener for back to dashboard button
+    const backToDashboardBtn = document.getElementById('back-to-dashboard');
+    if (backToDashboardBtn) {
+        backToDashboardBtn.addEventListener('click', function() {
+            window.location.href = 'index.html';
+        });
+    }
 }
 
 function updateQuestion() {
@@ -130,8 +138,67 @@ function finishSkill() {
     // Save to localStorage
     localStorage.setItem('lifeSkillsScores', JSON.stringify(skillScores));
     
-    // Return to dashboard
-    window.location.href = 'index.html';
+    // Show results screen
+    showResultsScreen(currentSkill, totalScore);
+}
+
+function showResultsScreen(skill, totalScore) {
+    // Hide question container
+    const questionContainer = document.getElementById('question-container');
+    const resultsContainer = document.getElementById('results-container');
+    
+    if (questionContainer && resultsContainer) {
+        questionContainer.style.display = 'none';
+        resultsContainer.style.display = 'block';
+        
+        // Update results content
+        const resultsSkillName = document.getElementById('results-skill-name');
+        const resultsScore = document.getElementById('results-score');
+        
+        if (resultsSkillName) {
+            resultsSkillName.textContent = skill.name;
+        }
+        
+        if (resultsScore) {
+            // Convert 1-1000 score to 0-100 for display
+            const displayScore = Math.round((totalScore / 1000) * 100);
+            const scoreText = getScoreText(displayScore);
+            const color = getScoreColor(displayScore);
+            
+            resultsScore.textContent = scoreText;
+            resultsScore.style.background = color;
+        }
+        
+        // Get the skill data from skillsData
+        const skillData = skillsData[skill.id];
+        
+        // Update stage root
+        const resultsStageRoot = document.getElementById('results-stage-root');
+        if (resultsStageRoot && skillData) {
+            resultsStageRoot.textContent = skillData.stageRoot;
+        }
+
+        // Update range text based on score range
+        const resultsRangeText = document.getElementById('results-range-text');
+        if (resultsRangeText && skillData) {
+            const displayScore = Math.round((totalScore / 1000) * 100);
+            let rangeText = '';
+            
+            if (displayScore <= 20) {
+                rangeText = skillData.ranges['1-20'];
+            } else if (displayScore <= 40) {
+                rangeText = skillData.ranges['21-40'];
+            } else if (displayScore <= 60) {
+                rangeText = skillData.ranges['41-60'];
+            } else if (displayScore <= 80) {
+                rangeText = skillData.ranges['61-80'];
+            } else {
+                rangeText = skillData.ranges['81-100'];
+            }
+            
+            resultsRangeText.textContent = rangeText;
+        }
+    }
 }
 
 
