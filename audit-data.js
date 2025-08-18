@@ -45,7 +45,7 @@ const auditData = {
                 "I'm afraid of having different opinions or preferences from other people because my relationship might become threatened",
                 "I ignore, or minimize negative thoughts and feelings in myself and others",
                 "People describe me as a bully, aggressive, or passive-aggressive",
-                "I believe that there is only a right way and wrong way to think about life I believe that there is only a right way and wrong way to think about life rather than embracing the fact that there are different perspectives, opinions and behaviors that are valuable.",
+                "I believe that there is only a right way and wrong way to think about life",
                 "I often assume that my thoughts and interpretations about God and/or theology are facts.",
                 "Prayer is difficult because I believe that God doesn't care about my real thoughts and preferences",
                 "I automatically argue or feel afraid of other's perspectives and opinions about God",
@@ -92,7 +92,7 @@ const auditData = {
             description: "The ability to take ownership of your life, emotions, and commitments",
             questions: [
                 "I'm afraid or avoid taking responsibility for my physical, emotional, social or spiritual well being",
-                "I feel clueless or avoid dealing with negative emotions",
+                "I avoid dealing with negative emotions",
                 "I avoid meeting my needs and mainly focus on the needs of others.",
                 "I blame my problems on other people",
                 "I blame my problems on bad luck",
@@ -108,15 +108,15 @@ const auditData = {
             name: "Expanding Love",
             description: "The ability to contribute to others' wellbeing and build meaningful connections",
             questions: [
-                "I lack connection and meaning in my life",
                 "I'm not contributing to the well being of others",
                 "I don't know how to connect emotionally in my relationships",
-                "I don't know how I could contribute in my relationships",
-                "I haven't addressed or faced an addiction, health issues or unresolved trauma and how it affects both me and my relationships",
+                "I haven't addressed an addiction",
+                "I haven't addressed my mental health challenges",
+                "I have not addressed trauma that still affects me now",
                 "I contribute to my family and church but I feel joyless, burdened, jealous and/or resentful",
-                "I have unprocessed wounds from relationships and it hinders a positive experience with God and relationships",
+                "I have unprocessed wounds from church relationships and it hinders a positive experience with God",
+                "I have unprocessed wounds from past relationships that hinder me in my present relationships",
                 "I use Scripture as a way to show how others are wrong, instead of it challenging me to become more like Jesus",
-                "My community lacks diversity of thought, race, cultures, age, and socio-economics",
                 "It's ok to treat people with disrespect and contempt in my words and behavior if they don't have the same beliefs and convictions as me and my community."
             ]
         }
