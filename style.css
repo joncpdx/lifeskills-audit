@@ -155,6 +155,7 @@ h1 {
 .skill-card.completed {
     background: #f8f9fa;
     border-color: #d1d5db;
+    cursor: pointer;
 }
 
 .skill-card.completed:hover {

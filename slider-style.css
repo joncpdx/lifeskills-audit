@@ -134,7 +134,7 @@
     color: white;
     border: none;
     padding: 1rem 2rem;
-    border-radius: 12px;
+    border-radius: 8px;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
@@ -153,6 +153,25 @@
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
+}
+
+.retake-btn {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.retake-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #e91e63 0%, #f093fb 100%);
+    box-shadow: 0 8px 20px rgba(233, 30, 99, 0.3);
+    transform: translateY(-2px);
 }
 
 #finish-btn {

@@ -73,9 +73,44 @@ function setupStartButtons() {
             e.stopPropagation(); // Prevent card click
             
             const skillId = this.id.replace('start-', '');
-            window.location.href = `audit.html?skill=${skillId}`;
+            navigateToSkill(skillId);
         });
     });
+    
+    // Add click handlers for skill cards
+    const skillCards = document.querySelectorAll('.skill-card');
+    console.log('Found', skillCards.length, 'skill cards');
+    
+    skillCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            // Don't trigger if clicking on the start button (already handled above)
+            if (e.target.classList.contains('start-button')) {
+                return;
+            }
+            
+            const skillId = this.getAttribute('data-skill');
+            console.log('Skill card clicked:', skillId);
+            navigateToSkill(skillId);
+        });
+    });
+}
+
+function navigateToSkill(skillId) {
+    // Check if this skill has already been completed
+    const savedScores = localStorage.getItem('lifeSkillsScores');
+    if (savedScores) {
+        const scores = JSON.parse(savedScores);
+        if (scores[skillId] && scores[skillId] > 0) {
+            // Skill is completed, show results instead of questions
+            window.location.href = `audit.html?skill=${skillId}&showResults=true`;
+        } else {
+            // Skill not completed, show questions
+            window.location.href = `audit.html?skill=${skillId}`;
+        }
+    } else {
+        // No saved scores, show questions
+        window.location.href = `audit.html?skill=${skillId}`;
+    }
 }
 
 function setupClearDataButton() {

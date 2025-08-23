@@ -46,7 +46,7 @@ const auditData = {
                 "I ignore, or minimize negative thoughts and feelings in myself and others",
                 "People describe me as a bully, aggressive, or passive-aggressive",
                 "I believe that there is only a right way and wrong way to think about life",
-                "I often assume that my thoughts and interpretations about God and/or theology are facts.",
+                "I often assume that my thoughts and interpretations about God and/or theology are facts"
                 "Prayer is difficult because I believe that God doesn't care about my real thoughts and preferences",
                 "I automatically argue or feel afraid of other's perspectives and opinions about God",
                 "God doesn’t care about me developing my thoughts and preferences"
@@ -62,7 +62,7 @@ const auditData = {
                 "I avoid acknowledging my weaknesses and limitations",
                 "I feel outraged or overwhelmed when things don't go the way I planned",
                 "I stay stuck in painful circumstances instead of taking action",
-                "In conflict, I can be disrespectful or aggressive.",
+                "In conflict, I can be disrespectful or aggressive"
                 "I avoid conflict",
                 "I don't know how to make repairs in my relationships",
                 "I believe God wants power-over me rather than a partnership with me",
@@ -81,7 +81,7 @@ const auditData = {
                 "I can't listen and/or adapt to constructive feedback",
                 "I expect to be capable and know how to do everything quickly",
                 "I mostly engage with people who think like me, behave like me, or look like me",
-                "I think God's cares more about rules and being a good person, than a relationship with me",
+                "I think God cares more about rules and being a good person, than having a relationship with me"
                 "God doesn't care about me growing my abilities and skills",
                 "I believe that God is more concerned about perfect or moral behavior than helping me grow my physical, emotional and social abilities"
             ]
@@ -97,8 +97,8 @@ const auditData = {
                 "I blame my problems on other people or bad luck",
                 "I haven't sought out help for dealing addiction or compulsions",
                 "I'm avoiding processing past trauma that still affects me",
-                "I'm only dependant in my relationships",
-                "People say that I'm irresponsible",
+                "I have a difficult time making and keeping commitments",
+                "I struggle to make decisions on my own"
                 "My parents have more influence in my life than God",
                 "God wants to control and direct my life"
             ]
@@ -111,7 +111,7 @@ const auditData = {
                 "I'm unaware of my talents or spiritual gifts",
                 "I generally feel drained when I try to help or support others",
                 "When someone close to me shares a struggle, I tend to move quickly into advice or problem-solving",
-                "I'm uncomfortable expressing appreciation for the strengths or contributions of people in my life",
+                "I'm uncomfortable expressing appreciation for the strengths or contributions of people in my life"
                 "When relationships get difficult or messy, I avoid and withdraw",
                 "I don't know how to connect emotionally in my relationships",
                 "I contribute to my family and church but I feel joyless, burdened, jealous and/or resentful",

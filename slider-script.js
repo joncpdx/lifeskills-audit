@@ -36,11 +36,26 @@ function initializeSlider() {
 function loadSkillFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     const requestedSkill = urlParams.get('skill');
+    const showResults = urlParams.get('showResults') === 'true';
     
     if (requestedSkill) {
         const skillIndex = auditData.skills.findIndex(skill => skill.id === requestedSkill);
         if (skillIndex !== -1) {
             currentSkillIndex = skillIndex;
+            
+            // If showResults is true and the skill has been completed, show results immediately
+            if (showResults) {
+                const savedScores = localStorage.getItem('lifeSkillsScores');
+                if (savedScores) {
+                    const scores = JSON.parse(savedScores);
+                    if (scores[requestedSkill] && scores[requestedSkill] > 0) {
+                        // Show results screen immediately
+                        const currentSkill = auditData.skills[currentSkillIndex];
+                        showResultsScreen(currentSkill, scores[requestedSkill]);
+                        return;
+                    }
+                }
+            }
         }
     }
 }
@@ -69,6 +84,34 @@ function setupEventListeners() {
     if (backToDashboardBtn) {
         backToDashboardBtn.addEventListener('click', function() {
             window.location.href = 'index.html';
+        });
+    }
+    
+    // Add event listener for retake button
+    const retakeBtn = document.getElementById('retake-skill');
+    if (retakeBtn) {
+        retakeBtn.addEventListener('click', function() {
+            // Clear the current skill's answers and score
+            const currentSkill = auditData.skills[currentSkillIndex];
+            userAnswers[currentSkill.id] = {};
+            currentSkill.questions.forEach((question, index) => {
+                userAnswers[currentSkill.id][index] = 50; // Reset to default
+            });
+            
+            // Reset current question index
+            currentQuestionIndex = 0;
+            
+            // Show question container and hide results
+            const questionContainer = document.getElementById('question-container');
+            const resultsContainer = document.getElementById('results-container');
+            
+            if (questionContainer && resultsContainer) {
+                questionContainer.style.display = 'block';
+                resultsContainer.style.display = 'none';
+            }
+            
+            // Update the question display
+            updateQuestion();
         });
     }
 }
