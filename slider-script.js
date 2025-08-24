@@ -6,6 +6,13 @@ let userAnswers = {};
 let skillScores = {};
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded');
+    console.log('auditData available:', typeof auditData !== 'undefined');
+    if (typeof auditData !== 'undefined') {
+        console.log('auditData.skills length:', auditData.skills.length);
+        console.log('First skill:', auditData.skills[0]);
+    }
+    
     initializeSlider();
     loadSkillFromURL();
     updateQuestion();
@@ -117,8 +124,25 @@ function setupEventListeners() {
 }
 
 function updateQuestion() {
+    if (typeof auditData === 'undefined') {
+        console.error('auditData is not defined!');
+        document.getElementById('question-text').textContent = 'Error: audit-data.js not loaded';
+        return;
+    }
+    
     const currentSkill = auditData.skills[currentSkillIndex];
+    if (!currentSkill) {
+        console.error('Current skill not found:', currentSkillIndex);
+        document.getElementById('question-text').textContent = 'Error: Skill not found';
+        return;
+    }
+    
     const currentQuestion = currentSkill.questions[currentQuestionIndex];
+    if (!currentQuestion) {
+        console.error('Current question not found:', currentQuestionIndex);
+        document.getElementById('question-text').textContent = 'Error: Question not found';
+        return;
+    }
     
     // Update skill name
     document.getElementById('skill-name').textContent = currentSkill.name;
