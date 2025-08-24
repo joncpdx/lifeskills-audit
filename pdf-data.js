@@ -16,8 +16,8 @@ const pdfData = {
         'receiving-love': 'This skill is rooted in the infant stage, when we learn to receive care and love—because being loved helps us develop trust and security.',
         'exploring-playfully': 'This skill is rooted in the toddler stage, when curiosity and safety meet—because exploration helps us learn resilience and joy.',
         'finding-voice': 'This skill is rooted in the preschool stage, when we develop our unique identity—because having a voice helps us maintain connections while being ourselves.',
-        'initiating-power': 'This skill is rooted in the school age stage when we learn to use our abilities because healthy power helps us contribute and create change.',
-        'building-competence': 'This skill is rooted in adolescence, when we develop our capabilities—because competence helps us adapt and grow in challenging circumstances.',
+        'initiating-power': 'This skill is rooted in the preschool age stage when we learn to use our abilities because healthy power helps us contribute and create change.',
+        'building-competence': 'This skill is rooted in middle childhood, when we develop our capabilities—because competence helps us adapt and grow in challenging circumstances.',
         'increasing-responsibility': 'This skill is rooted in young adulthood, when we take ownership of our lives—because responsibility helps us manage our internal world and behavior.',
         'expanding-love': 'This skill is rooted in adulthood, when we contribute to others—because expanding love helps us connect and contribute meaningfully.'
     },
