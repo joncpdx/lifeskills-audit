@@ -1,0 +1,134 @@
+LIFE SKILLS AUDIT - PDF CONTENT EDITING GUIDE
+================================================
+
+This document contains all the text content that appears in the PDF download.
+Edit the content below and then copy it back into the pdf-data.js file.
+
+================================================================================
+SKILL NAMES
+================================================================================
+These are the display names for each skill in the PDF:
+
+receiving-love: Receiving Love
+exploring-playfully: Exploring Playfully
+finding-voice: Finding Your Voice
+initiating-power: Initiating Power
+building-competence: Building Competence
+increasing-responsibility: Increasing Responsibility
+expanding-love: Expanding Love
+
+================================================================================
+SKILL DESCRIPTIONS (Developmental Stage Connections)
+================================================================================
+These appear in italics below each skill name in the PDF:
+
+receiving-love: This skill is rooted in the infant stage, when we learn to receive care and love—because being loved helps us develop trust and security.
+
+exploring-playfully: This skill is rooted in the toddler stage, when curiosity and safety meet—because exploration helps us learn resilience and joy.
+
+finding-voice: This skill is rooted in the preschool stage, when we develop our unique identity—because having a voice helps us maintain connections while being ourselves.
+
+initiating-power: This skill is rooted in the school age stage when we learn to use our abilities because healthy power helps us contribute and create change.
+
+building-competence: This skill is rooted in adolescence, when we develop our capabilities—because competence helps us adapt and grow in challenging circumstances.
+
+increasing-responsibility: This skill is rooted in young adulthood, when we take ownership of our lives—because responsibility helps us manage our internal world and behavior.
+
+expanding-love: This skill is rooted in adulthood, when we contribute to others—because expanding love helps us connect and contribute meaningfully.
+
+================================================================================
+SKILL STATEMENTS
+================================================================================
+These appear below each skill name in the PDF:
+
+receiving-love: I can receive love because I am loved just as I am.
+
+exploring-playfully: I can try new behaviors because I am supported.
+
+finding-voice: I can become my own person and keep connections.
+
+initiating-power: I can use my abilities and influence for healthy relationships.
+
+building-competence: I can grow my abilities in challenging circumstances.
+
+increasing-responsibility: I can manage my internal world and behavior.
+
+expanding-love: I can connect and contribute meaningfully.
+
+================================================================================
+RESULT STATEMENTS (Personalized recommendations based on score)
+================================================================================
+These appear below each skill's developmental stage description in the PDF.
+Each skill has three levels: low (1-40), moderate (41-80), and high (81-100).
+
+RECEIVING LOVE:
+Low (1-40): You may struggle to accept love and care from others. Consider practicing vulnerability and allowing yourself to receive support.
+Moderate (41-80): You're developing the ability to receive love. Focus on accepting help and recognizing your worthiness of care.
+High (81-100): You have a strong foundation in receiving love. Continue to nurture this skill and help others develop it too.
+
+EXPLORING PLAYFULLY:
+Low (1-40): You may avoid new experiences due to fear or perfectionism. Try small experiments and celebrate curiosity.
+Moderate (41-80): You're building courage to explore. Practice trying new things in safe environments.
+High (81-100): You embrace new experiences with joy. Your curiosity and resilience inspire others.
+
+FINDING YOUR VOICE:
+Low (1-40): You may struggle to express your authentic self. Practice sharing your thoughts and preferences.
+Moderate (41-80): You're developing your unique voice. Continue to express your perspective while maintaining connections.
+High (81-100): You confidently express your authentic self. Your voice adds valuable perspective to your relationships.
+
+INITIATING POWER:
+Low (1-40): You may avoid taking initiative or handling conflicts. Practice assertiveness and constructive conflict resolution.
+Moderate (41-80): You're developing healthy power and initiative. Continue to take action and address conflicts directly.
+High (81-100): You effectively use your influence for positive change. Your leadership and conflict resolution skills are strong.
+
+BUILDING COMPETENCE:
+Low (1-40): You may avoid learning new skills or adapting to change. Focus on growth mindset and seeking feedback.
+Moderate (41-80): You're developing new capabilities. Continue to embrace challenges and learn from diverse perspectives.
+High (81-100): You adapt and grow in challenging circumstances. Your competence and resilience are impressive.
+
+INCREASING RESPONSIBILITY:
+Low (1-40): You may avoid taking ownership of your life and emotions. Practice self-reflection and commitment-keeping.
+Moderate (41-80): You're taking more responsibility for your well-being. Continue to manage your internal world effectively.
+High (81-100): You take full ownership of your life and choices. Your responsibility and self-management are exemplary.
+
+EXPANDING LOVE:
+Low (1-40): You may struggle to contribute meaningfully to others. Focus on identifying your gifts and connecting emotionally.
+Moderate (41-80): You're developing your ability to contribute and connect. Continue to share your talents and support others.
+High (81-100): You meaningfully contribute to others' well-being. Your love and generosity create positive impact.
+
+================================================================================
+SCORE TEXT LABELS
+================================================================================
+These appear on the colored result buttons in the PDF:
+
+1-20: needs attention
+21-40: opportunity for growth
+41-60: developing
+61-80: strong
+81-100: thriving
+
+================================================================================
+BOOK RECOMMENDATION
+================================================================================
+This appears at the top of the PDF:
+
+Title: 7 Skills for Life:
+Subtitle: Spiritual Growth in Each Stage of Human Development
+Learn More URL: www.tristencollins.com
+
+================================================================================
+INSTRUCTIONS FOR UPDATING
+================================================================================
+
+1. Edit the content above as needed
+2. Copy the updated content back into the pdf-data.js file
+3. Make sure to maintain the exact format and structure
+4. Test the PDF download to ensure changes appear correctly
+
+Note: The PDF also includes:
+- Current date (automatically generated)
+- User's actual scores (from their completed audit)
+- Color-coded result buttons (automatically generated based on scores)
+- Result key at the bottom (showing all five color ranges)
+
+================================================================================

@@ -423,12 +423,12 @@ function generatePDF() {
     doc.setFontSize(headerFontSize);
     doc.setFont(undefined, 'bold');
     doc.setTextColor(0, 0, 0);
-    doc.text('7 Skills for Life:', bookX + bookWidth + 10, bookY + 15);
+    doc.text(pdfData.bookRecommendation.title, bookX + bookWidth + 10, bookY + 15);
     
     doc.setFontSize(bodyFontSize);
     doc.setFont(undefined, 'normal');
     doc.setTextColor(0, 0, 0);
-    const subtitleText = 'Spiritual Growth in Each Stage of Human Development';
+    const subtitleText = pdfData.bookRecommendation.subtitle;
     const subtitleLines = doc.splitTextToSize(subtitleText, 120);
     doc.text(subtitleLines, bookX + bookWidth + 10, bookY + 25);
     
@@ -438,7 +438,7 @@ function generatePDF() {
     doc.setFontSize(bodyFontSize);
     doc.setFont(undefined, 'bold');
     doc.setTextColor(0, 0, 0); // Black color for link
-    doc.text('Learn more: www.tristencollins.com', 20, yPosition);
+    doc.text('Learn more: ' + pdfData.bookRecommendation.learnMoreUrl, 20, yPosition);
     
     yPosition += 30;
     
@@ -586,84 +586,19 @@ function generatePDF() {
 }
 
 function getSkillName(skillId) {
-    const skillNames = {
-        'receiving-love': 'Receiving Love',
-        'exploring-playfully': 'Exploring Playfully',
-        'finding-voice': 'Finding Your Voice',
-        'initiating-power': 'Initiating Power',
-        'building-competence': 'Building Competence',
-        'increasing-responsibility': 'Increasing Responsibility',
-        'expanding-love': 'Expanding Love'
-    };
-    return skillNames[skillId] || skillId;
+    return pdfData.skillNames[skillId] || skillId;
 }
 
 function getSkillDescription(skillId) {
-    const skillDescriptions = {
-        'receiving-love': 'This skill is rooted in the infant stage, when we learn to receive care and love—because being loved helps us develop trust and security.',
-        'exploring-playfully': 'This skill is rooted in the toddler stage, when curiosity and safety meet—because exploration helps us learn resilience and joy.',
-        'finding-voice': 'This skill is rooted in the preschool stage, when we develop our unique identity—because having a voice helps us maintain connections while being ourselves.',
-        'initiating-power': 'This skill is rooted in the school-age stage, when we learn to use our abilities—because healthy power helps us contribute and influence others.',
-        'building-competence': 'This skill is rooted in adolescence, when we develop our capabilities—because competence helps us adapt and grow in challenging circumstances.',
-        'increasing-responsibility': 'This skill is rooted in young adulthood, when we take ownership of our lives—because responsibility helps us manage our internal world and behavior.',
-        'expanding-love': 'This skill is rooted in adulthood, when we contribute to others—because expanding love helps us connect and contribute meaningfully.'
-    };
-    return skillDescriptions[skillId] || '';
+    return pdfData.skillDescriptions[skillId] || '';
 }
 
 function getSkillStatement(skillId) {
-    const skillStatements = {
-        'receiving-love': 'I can receive love because I am loved just as I am.',
-        'exploring-playfully': 'I can try new behaviors because I am supported.',
-        'finding-voice': 'I can become my own person and keep connections.',
-        'initiating-power': 'I can use my abilities and influence for healthy relationships.',
-        'building-competence': 'I can grow my abilities in challenging circumstances.',
-        'increasing-responsibility': 'I can manage my internal world and behavior.',
-        'expanding-love': 'I can connect and contribute meaningfully.'
-    };
-    return skillStatements[skillId] || '';
+    return pdfData.skillStatements[skillId] || '';
 }
 
 function getResultStatement(skillId, score) {
-    const statements = {
-        'receiving-love': {
-            low: 'You may struggle to accept love and care from others. Consider practicing vulnerability and allowing yourself to receive support.',
-            moderate: 'You\'re developing the ability to receive love. Focus on accepting help and recognizing your worthiness of care.',
-            high: 'You have a strong foundation in receiving love. Continue to nurture this skill and help others develop it too.'
-        },
-        'exploring-playfully': {
-            low: 'You may avoid new experiences due to fear or perfectionism. Try small experiments and celebrate curiosity.',
-            moderate: 'You\'re building courage to explore. Practice trying new things in safe environments.',
-            high: 'You embrace new experiences with joy. Your curiosity and resilience inspire others.'
-        },
-        'finding-voice': {
-            low: 'You may struggle to express your authentic self. Practice sharing your thoughts and preferences.',
-            moderate: 'You\'re developing your unique voice. Continue to express your perspective while maintaining connections.',
-            high: 'You confidently express your authentic self. Your voice adds valuable perspective to your relationships.'
-        },
-        'initiating-power': {
-            low: 'You may avoid taking initiative or handling conflicts. Practice assertiveness and constructive conflict resolution.',
-            moderate: 'You\'re developing healthy power and initiative. Continue to take action and address conflicts directly.',
-            high: 'You effectively use your influence for positive change. Your leadership and conflict resolution skills are strong.'
-        },
-        'building-competence': {
-            low: 'You may avoid learning new skills or adapting to change. Focus on growth mindset and seeking feedback.',
-            moderate: 'You\'re developing new capabilities. Continue to embrace challenges and learn from diverse perspectives.',
-            high: 'You adapt and grow in challenging circumstances. Your competence and resilience are impressive.'
-        },
-        'increasing-responsibility': {
-            low: 'You may avoid taking ownership of your life and emotions. Practice self-reflection and commitment-keeping.',
-            moderate: 'You\'re taking more responsibility for your well-being. Continue to manage your internal world effectively.',
-            high: 'You take full ownership of your life and choices. Your responsibility and self-management are exemplary.'
-        },
-        'expanding-love': {
-            low: 'You may struggle to contribute meaningfully to others. Focus on identifying your gifts and connecting emotionally.',
-            moderate: 'You\'re developing your ability to contribute and connect. Continue to share your talents and support others.',
-            high: 'You meaningfully contribute to others\' well-being. Your love and generosity create positive impact.'
-        }
-    };
-    
-    const skillStatements = statements[skillId];
+    const skillStatements = pdfData.resultStatements[skillId];
     if (!skillStatements) return '';
     
     if (score <= 40) return skillStatements.low;
@@ -730,15 +665,15 @@ function getScoreColor(score) {
     
     // 5 distinct color ranges
     if (score <= 20) {
-        return 'rgb(220, 38, 38)'; // Deep red
+        return pdfData.scoreColors.needsAttention;
     } else if (score <= 40) {
-        return 'rgb(255, 165, 0)'; // Orange
+        return pdfData.scoreColors.opportunityForGrowth;
     } else if (score <= 60) {
-        return 'rgb(180, 180, 0)'; // Darker yellow for better readability
+        return pdfData.scoreColors.developing;
     } else if (score <= 80) {
-        return 'rgb(95, 120, 25)'; // Olive green
+        return pdfData.scoreColors.strong;
     } else {
-        return 'rgb(0, 100, 0)'; // Dark green
+        return pdfData.scoreColors.thriving;
     }
 }
 
@@ -748,15 +683,15 @@ function getScoreText(score) {
     
     // Return descriptive text based on score range
     if (score <= 20) {
-        return 'needs attention';
+        return pdfData.scoreTexts.needsAttention;
     } else if (score <= 40) {
-        return 'opportunity for growth';
+        return pdfData.scoreTexts.opportunityForGrowth;
     } else if (score <= 60) {
-        return 'developing';
+        return pdfData.scoreTexts.developing;
     } else if (score <= 80) {
-        return 'strong';
+        return pdfData.scoreTexts.strong;
     } else {
-        return 'thriving';
+        return pdfData.scoreTexts.thriving;
     }
 }
 
